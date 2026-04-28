@@ -1,4 +1,5 @@
 **Портфолио с проектами**
+
 **Python**
 1.	[Предсказание GPA студентов](https://github.com/vika27006/portfolio/blob/7065cbaebdb8c4886c3c58cf6a073187ceb053eb/Prediction_of_Student_Academic_Performance_using_Machine_Learning.py)
 Построена модель машинного обучения для предсказания GPA студентов на основе их привычек и использования AI-инструментов. Проведён анализ данных, визуализированы распределения признаков. Обучены три модели: линейная регрессия, дерево решений и градиентный бустинг с подбором гиперпараметров через GridSearchCV. Использованы Python: pandas, scikit-learn, matplotlib.
