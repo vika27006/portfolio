@@ -15,18 +15,18 @@ SQL
 Визуализация
 
 Google-таблицы/Excel
-1. Отчет о продажах за 2020-2021гг
+1. [Отчет о продажах за 2020-2021гг](https://docs.google.com/spreadsheets/d/10Lk8G24vVSKdF3qr46y5GXHTcxVHsRPBmHOlhNB7JU4/edit?usp=sharing)
 
 Yandex DataLens
-1. Анализ продаж товаров для рукоделия
+1. [Анализ продаж товаров для рукоделия](https://datalens.yandex/kuoclw2cg3i04)
 
 Power BI
-1. Анализ работы филиалов
-2. Анализ финансовых показателей ВТБ
-3. Анализ финансовых показателей дистрибьютера Александрия
+1. [Анализ работы филиалов](https://drive.google.com/file/d/1tOGPkaPe6gFMAK1jgSK9FhcMPfjwtOjk/view?usp=sharing)
+2. [Анализ финансовых показателей ВТБ](https://drive.google.com/file/d/1AAuFuQdFPOYKn3FJb1gsYyv2Anmvp3-X/view?usp=sharing)
+3. [Анализ финансовых показателей дистрибьютера Александрия](https://drive.google.com/file/d/1zlOHl1KSILJt4BGMalpbj7QvpFIM5bC5/view?usp=sharing)
 
 Visiology
-1.	Анализ рынка жилья
+1.	[Анализ рынка жилья](https://drive.google.com/file/d/17WhmN2hQL2zo5PEIkmqOoxwBdtksWQy7/view?usp=sharing)
 
 
 
