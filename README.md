@@ -29,9 +29,10 @@ Visiology
 1.	[Анализ рынка жилья](https://drive.google.com/file/d/17WhmN2hQL2zo5PEIkmqOoxwBdtksWQy7/view?usp=sharing)
 
 **Другое**
-1. [BI-аналитика киберугроз в Loginom](https://drive.google.com/file/d/1k0MuPa4W9RB8v85HtHWu3z_u9YViz-lI/view?usp=sharing)
-2. [Анализ процессов ИТ-компании в bpmn, idef0](https://drive.google.com/file/d/1Thh40UXDdN8yQSZq38KgWd0aBe5IgqxY/view?usp=sharing)
-3. [UML-моделирование бизнес-процессов](https://drive.google.com/file/d/1OAQHjJJmEl1ESXpw7DFKnwH5nGQCpu2h/view?usp=sharing)
+1. Разработка ИИ-агента по подбору профессии и обучению. Разработана экосистема из 4 автоматизированных ИИ-воркфлоу в n8n (Cloud.ru), включающая Telegram-бота-профориентолога для выбора професии, ежедневный парсер IT-дайджеста из 3 RSS-лент с суммаризацией через LLM, а также анализатор вакансий HH.ru для ранжирования топ-15 навыков бизнес-аналитика. 
+2. [BI-аналитика киберугроз в Loginom](https://drive.google.com/file/d/1k0MuPa4W9RB8v85HtHWu3z_u9YViz-lI/view?usp=sharing)
+3. [Анализ процессов ИТ-компании в bpmn, idef0](https://drive.google.com/file/d/1Thh40UXDdN8yQSZq38KgWd0aBe5IgqxY/view?usp=sharing)
+4. [UML-моделирование бизнес-процессов](https://drive.google.com/file/d/1OAQHjJJmEl1ESXpw7DFKnwH5nGQCpu2h/view?usp=sharing)
 
 
 
