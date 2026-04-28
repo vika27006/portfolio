@@ -1,0 +1,209 @@
+{
+  "name": "task 4",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -32,
+        752
+      ],
+      "id": "68f7f287-bfda-4dcf-a623-296424cff29f",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "url": "https://api.hh.ru/vacancies?text=name:(бизнес-аналитик)&area=1&per_page=10&period=7",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        752
+      ],
+      "id": "3dc2a007-c230-4efd-ace9-ac3e3e8dfcb4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const apiResponse = $input.all()[0].json;\nconst quantity = apiResponse.items.length;\nconst currentVacancies = apiResponse.items;\n\nconst result = {\n  quantity: quantity,\n  raw_items: currentVacancies\n};\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        384,
+        752
+      ],
+      "id": "7630afaa-e8b3-4cc0-b99c-093beecff6b7",
+      "name": "Code in JavaScript5"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json }}",
+        "options": {
+          "systemMessage": "Ты — ИИ-помощник для анализа вакансий с HH.ru. Твоя цель — создать точный, объективный и полезный дайджест для карьерного планирования. Твоя задача — выделить ядро компетенций (топ-15 самых частых навыков) из предоставленных описаний вакансий.\n\nИнструкция\n1.  Извлеки все технические и профессиональные навыки из предоставленных текстов описаний вакансий.\n2.  Нормализуй навыки к единому виду — приведи синонимы, сокращения и разное написание к единой нормативной форме. \n3.  Объедини одинаковые навыки под единым названием.\n4.  Подсчитай частоту каждого уникального нормализованного навыка.\n5.  Отсортируй навыки по убыванию частоты и выбери топ-15 самых частых.\n6.  Сформируй ответ СТРОГО в следующем формате, не добавляя никаких лишних комментариев, приветствий или объяснений:\n\nНа этой неделе я спарсил N свежих вакансий по направлению бизнес-аналитик. Самыми популярными являются следующие требования:\nнавык_1: количество_раз\nнавык_2: количество_раз\n...\nнавык_15: количество_раз\n\nКритерии отбора навыков\nВключай только конкретные навыки:\n- Технические навыки и инструменты\n- Профессиональные навыки с указанием области\n- Методологии\n- Языки программирования/запросов\n- Инструменты аналитики\n- Средства визуализации\n- Конкретные действия\n\n\nПравила\n- Если вакансий или навыков недостаточно для топ-15, выведи только реально существующие навыки.\n- Не добавляй навыки, которых нет в исходных текстах.\n- Сохраняй нейтральный, профессиональный тон."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        752
+      ],
+      "id": "355d74eb-7bd2-4e90-890a-c93d0cf18d94",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "GigaChat/GigaChat-2-Max",
+          "mode": "list",
+          "cachedResultName": "GigaChat/GigaChat-2-Max"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        464,
+        960
+      ],
+      "id": "26e976c5-4bff-4547-9c04-169bd80ba67a",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "HuTXygcyqdNh3Gtr",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "-1003433518235",
+        "text": "={{ $json.result}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        752
+      ],
+      "id": "b2c558a5-9dfa-4237-b6b3-a9c5f90e5d2d",
+      "name": "Send a text message2",
+      "webhookId": "0d8c9228-38b9-4205-b4e4-a6ba0f6e9c99",
+      "credentials": {
+        "telegramApi": {
+          "id": "XqR2UdyRWfqsxTIi",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputs = $input.all();\nlet text = '';\n\nif (inputs.length > 0) {\n  const firstInput = inputs[0];\n  text = firstInput.json.output;\n}\n\nconst lines = text.split('\\n');\nconst result = [];\n\nif (lines.length > 0) {\n  result.push('📊 ' + lines[0]);\n  \n  for (let i = 1; i < lines.length; i++) {\n    const line = lines[i].trim();\n    if (line) {\n      let emoji = '💡';\n      if (line.includes('Excel') || line.includes('SQL') || line.includes('BPMN') || line.includes('ПО')) emoji = '💻';\n      else if (line.includes('моделирование') || line.includes('анализ')) emoji = '📈';\n      else if (line.includes('процесс')) emoji = '🔍';\n      else if (line.includes('переговор')) emoji = '🤝';\n      else if (line.includes('1С')) emoji = '🏢';\n      else if (line.includes('оптимизац')) emoji = '⚙️';\n      result.push(emoji + ' ' + line);\n    }\n  }\n}\n\nreturn [{\n  json: {\n    result: result.join('\\n')\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        752
+      ],
+      "id": "96fd63d8-4e1c-4b50-986e-087d2dd75605",
+      "name": "Code in JavaScript6"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript5": {
+      "main": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript6": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5d0b0634-f450-422c-8d7e-51fddc687c52",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c78bd4e1c2c422fd23491e61ee7d3a20fdec61485af00a651dac4e345e55e709"
+  },
+  "id": "eYo62RPIzMt1FxiF",
+  "tags": []
+}
